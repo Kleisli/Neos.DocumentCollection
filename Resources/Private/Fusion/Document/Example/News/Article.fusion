@@ -1,0 +1,11 @@
+prototype(Kleisli.Neos.DocumentCollection:Document.Example.News.Article) < prototype(Neos.Neos:Page) {
+    body = Neos.Fusion:Component {
+        main = Neos.Neos:PrimaryContent {
+            nodePath = 'main'
+        }
+
+        renderer = afx`
+            {props.main}
+        `
+    }
+}

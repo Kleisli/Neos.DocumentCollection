@@ -1,0 +1,27 @@
+'Kleisli.Neos.DocumentCollection:Document.Example.News.Article':
+  abstract: false
+  superTypes:
+    'Neos.Neos:Document': true
+    'Kleisli.Neos.DocumentCollection:Constraint.HideInDocumentTree': true
+  ui:
+    icon: file
+    label: 'Example News Article'
+    inspector:
+      groups:
+        content:
+          label: Content
+          position: 20
+          icon: 'sticky-note'
+  childNodes:
+    main:
+      type: 'Neos.Neos:ContentCollection'
+  properties:
+    teaserText:
+      type: string
+      ui:
+        label: 'TeaserText'
+        inspector:
+          group: 'content'
+          editor: 'Neos.Neos/Inspector/Editors/TextAreaEditor'
+          editorOptions:
+            rows: 7

@@ -1,0 +1,12 @@
+.document-hiddenInIndex a, .document-hiddenInIndex i,
+.document-hidden a, .document-hidden i{
+    opacity: .66;
+}
+
+.neos.neos-module .neos-table a:hover {
+    color: #00ADEE;
+}
+
+.neos [class*=" fa-"] {
+    font-size: 100%;
+}

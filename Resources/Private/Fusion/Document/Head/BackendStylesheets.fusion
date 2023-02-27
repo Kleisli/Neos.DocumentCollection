@@ -1,0 +1,9 @@
+prototype(Kleisli.Neos.DocumentCollection:Document.Head.BackendStylesheets) < prototype(Neos.Fusion:Fragment) {
+
+    @if.inBacked = ${node.context.inBackend}
+    content = afx`
+        <link rel="stylesheet" type="text/css" href={StaticResource.uri('Neos.Neos', 'Public/Styles/Main.css')}/>
+        <link rel="stylesheet" type="text/css" href={StaticResource.uri('Kleisli.Neos.DocumentAdminBar', 'Public/Styles/AdminBar.css')}/>
+        <link rel="stylesheet" type="text/css" href={StaticResource.uri('Kleisli.Neos.DocumentCollection', 'Public/Styles/DocumentCollection.css')}/>
+    `
+}

@@ -1,0 +1,14 @@
+prototype(Kleisli.Neos.DocumentCollection:Component.AdminBar) < prototype(Neos.Fusion:Component) {
+
+    currentView = ''
+
+    renderer = afx`
+        <Kleisli.Neos.DocumentAdminBar:Component.AdminBar>
+            <Neos.Neos:NodeLink attributes.title="List view" attributes.class={"tab"+(props.currentView == 'list' ? ' tab-active' : '') } arguments.view={'list'}>
+                <i class="fas fa-list"></i>
+            </Neos.Neos:NodeLink>
+            <Neos.Neos:NodeLink attributes.title="Layout view" attributes.class={"tab"+(props.currentView == 'layout' ? ' tab-active' : '')} arguments.view={'layout'}>
+                <i class="far fa-newspaper"></i>
+            </Neos.Neos:NodeLink>
+        </Kleisli.Neos.DocumentAdminBar:Component.AdminBar>`
+}

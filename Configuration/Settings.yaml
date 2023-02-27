@@ -3,3 +3,10 @@ Neos:
     fusion:
       autoInclude:
         'Kleisli.Neos.DocumentCollection': TRUE
+
+    userInterface:
+      navigateComponent:
+        nodeTree:
+          presets:
+            default:
+              baseNodeType: "Neos.Neos:Document,!Kleisli.Neos.DocumentCollection:Constraint.HideInDocumentTree"

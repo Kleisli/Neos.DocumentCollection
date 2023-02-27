@@ -1,11 +1,19 @@
-prototype(Kleisli.Neos.DocumentCollection:Page) < prototype(Neos.Fusion:Component) {
+prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototype(Neos.Fusion:Component) {
 
     defaultView = 'list'
+
+    layoutView = Neos.Neos:Page {
+        head.stylesheets.documentCollection = Kleisli.Neos.DocumentCollection:Document.Head.BackendStylesheets
+        body = 'Define a layoutView in your Document prototype.'
+        body.@process.documentCollection = Kleisli.Neos.DocumentCollection:Process.PrependAdminBar {
+            header.currentView = 'layout'
+        }
+    }
 
     renderer = Neos.Fusion:Case {
         layoutView {
             @position = "start"
-            condition = ${request.arguments.view == 'layout' || (props.defaultView == 'layout' && request.arguments.view != 'list')}
+            condition =  ${request.arguments.view == 'layout' || (props.defaultView == 'layout' && request.arguments.view != 'list')}
             renderer = ${props.layoutView}
         }
 
@@ -13,12 +21,7 @@ prototype(Kleisli.Neos.DocumentCollection:Page) < prototype(Neos.Fusion:Componen
             @position = "end"
             condition = true
             renderer = Neos.Neos:Page {
-                head {
-                    stylesheets = afx`
-                        <link rel="stylesheet" type="text/css" href={StaticResource.uri('Neos.Neos', 'Public/Styles/Main.css')}/>
-                    `
-                }
-
+                head.stylesheets.documentCollection = Kleisli.Neos.DocumentCollection:Document.Head.BackendStylesheets
                 bodyTag.attributes.class = "neos neos-module"
 
                 body = Neos.Fusion:Component {
@@ -41,18 +44,15 @@ prototype(Kleisli.Neos.DocumentCollection:Page) < prototype(Neos.Fusion:Componen
                     }
                     documents.@process.table = ${'<table class="neos-table">'+value+'</table>'}
 
-                    title = Neos.Neos:Editable {
-                        property = 'title'
-                        @process.contentElementWrapping = Neos.Neos:ContentElementWrapping
-                    }
-                    icon = ${node.nodeType.fullConfiguration.ui.icon}
+                    icon = ${documentNode.nodeType.fullConfiguration.ui.icon}
 
                     renderer = afx`
-                        <Kleisli.Neos.DocumentCollection:Header currentView='list' />
+                        <Kleisli.Neos.DocumentCollection:Component.AdminBar currentView='list' />
                         <div class="neos-module-wrap">
                             <div class="neos-content neos-fluid-container neos-indented">
                                 <legend>
-                                    {props.title}
+                                    <i class={'fas fa-' + props.icon + ' ' + props.icon} @if={props.icon}></i> &nbsp;
+                                    {documentNode.properties.title}
                                 </legend>
                                 {props.documents}
                             </div></div>
@@ -62,9 +62,6 @@ prototype(Kleisli.Neos.DocumentCollection:Page) < prototype(Neos.Fusion:Componen
         }
     }
 
-    layoutView.body.renderer.@process.documentCollection = Kleisli.Neos.DocumentCollection:AddHeader {
-        header.currentView = 'layout'
-    }
 
     @cache {
         mode = 'uncached'

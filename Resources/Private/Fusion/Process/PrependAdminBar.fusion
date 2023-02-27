@@ -1,0 +1,5 @@
+prototype(Kleisli.Neos.DocumentCollection:Process.PrependAdminBar) < prototype(Neos.Fusion:Join) {
+
+    header = Kleisli.Neos.DocumentCollection:Component.AdminBar
+    content = ${value}
+}

@@ -1,5 +1,0 @@
-prototype(Kleisli.Neos.DocumentCollection:AddHeader) < prototype(Neos.Fusion:Join) {
-
-    header = Kleisli.Neos.DocumentCollection:Header
-    content = ${value}
-}

@@ -1,5 +1,5 @@
-'Kleisli.Neos.DocumentCollection:Page':
-  abstract: false
+'Kleisli.Neos.DocumentCollection:Document.DocumentCollection':
+  abstract: true
   superTypes:
     'Neos.Neos:Document': true
   ui:
