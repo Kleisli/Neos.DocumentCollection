@@ -1,8 +1,7 @@
 # Kleisli.Neos.DocumentCollection
 ***
 
-:information_source: Provides a backend list view to avoid large and confusing document subtrees 
-that typically occur with news articles or blog posts.
+### :information_source: Provides a backend list view to avoid large and confusing document subtrees that typically occur with news articles or blog posts.
 
 ***
 
