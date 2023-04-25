@@ -1,9 +1,7 @@
 # Kleisli.Neos.DocumentCollection
-***
+A backend list view of document subtrees for Neos CMS
+to avoid large and confusing document subtrees that typically occur with news articles or blog posts.
 
-### :information_source: Provides a backend list view to avoid large and confusing document subtrees that typically occur with news articles or blog posts.
-
-***
 
 ![DocumentCollection](Resources/Public/Images/DocumentCollection.png)
 

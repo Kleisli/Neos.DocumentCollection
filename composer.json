@@ -1,11 +1,10 @@
 {
-    "description": "A tool to provide a backend list view for Documents in Neos CMS.",
     "type": "neos-package",
     "name": "kleisli/neos-documentcollection",
-    "version": "0.6.0",
+    "description": "A backend list view of document subtrees for Neos CMS",
     "require": {
         "neos/neos": "^8.0",
-        "kleisli/neos-documentadminbar": "^0.5"
+        "kleisli/neos-documentadminbar": "^1.0"
     },
     "extra": {
         "neos": {
