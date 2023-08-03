@@ -68,6 +68,7 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
         context {
             1 = 'node'
             2 = 'documentNode'
+            3 = 'site'
         }
     }
 
