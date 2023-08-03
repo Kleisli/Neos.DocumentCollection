@@ -5,7 +5,7 @@ prototype(Kleisli.Neos.DocumentCollection:Document.Example.News) < prototype(Kle
             renderer = afx`
                 <h1>{documentNode.properties.title}</h1>
                 <ul>
-                    <Neos.Fusion:Loop items={q(node).children('[instanceof Kleisli.Neos.DocumentCollection:Document.Example.News.Article]').filter('[_hiddenInIndex = false]')} @children="itemRenderer">
+                    <Neos.Fusion:Loop items={q(node).children('[instanceof Kleisli.Neos.DocumentCollection:Document.Example.News.Article]').filter('[_hiddenInIndex = false]').sort('date', 'ASC')} @children="itemRenderer">
                         <li>
                             <h2>
                                 <Neos.Neos:NodeLink node={item}>

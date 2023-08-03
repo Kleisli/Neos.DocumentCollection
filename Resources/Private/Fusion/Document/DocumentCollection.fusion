@@ -13,7 +13,7 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
     renderer = Neos.Fusion:Case {
         layoutView {
             @position = "start"
-            condition =  ${request.arguments.view == 'layout' || (props.defaultView == 'layout' && request.arguments.view != 'list')}
+            condition =  ${!site.context.inBackend || request.arguments.view == 'layout' || (props.defaultView == 'layout' && request.arguments.view != 'list')}
             renderer = ${props.layoutView}
         }
 
@@ -26,7 +26,7 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
 
                 body = Neos.Fusion:Component {
                     documents = Neos.Fusion:Loop {
-                        items = ${q(node).children('[instanceof Neos.Neos:Document]')}
+                        items = ${q(node).children('[instanceof Neos.Neos:Document]').sort('date', 'ASC')}
                         itemName = 'document'
                         itemRenderer = Neos.Fusion:Component {
                             icon = ${document.nodeType.fullConfiguration.ui.icon}
