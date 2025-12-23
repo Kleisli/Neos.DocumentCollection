@@ -2,6 +2,12 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
 
     defaultView = 'list'
 
+    listViewConfiguration = Neos.Fusion:DataStructure {
+        sortingBy = '_creationdatetime'
+        sortingDirection = 'DESC'
+        showProperties = Neos.Fusion:DataStructure
+    }
+
     layoutView = Neos.Neos:Page {
         head.stylesheets.documentCollection = Kleisli.Neos.DocumentCollection:Document.Head.BackendStylesheets
         body = 'Define a layoutView in your Document prototype.'
@@ -13,7 +19,7 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
     renderer = Neos.Fusion:Case {
         layoutView {
             @position = "start"
-            condition =  ${!site.context.inBackend || request.arguments.view == 'layout' || (props.defaultView == 'layout' && request.arguments.view != 'list')}
+            condition =  ${!documentNode.context.inBackend || request.arguments.view == 'layout' || (props.defaultView == 'layout' && request.arguments.view != 'list')}
             renderer = ${props.layoutView}
         }
 
@@ -26,17 +32,31 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
 
                 body = Neos.Fusion:Component {
                     documents = Neos.Fusion:Loop {
-                        items = ${q(node).children('[instanceof Neos.Neos:Document]').sort('date', 'ASC')}
+                        items = ${q(node).children('[instanceof Neos.Neos:Document]').sort(props.listViewConfiguration.sortingBy, props.listViewConfiguration.sortingDirection)}
                         itemName = 'document'
                         itemRenderer = Neos.Fusion:Component {
+                            @apply.props = ${props}
                             icon = ${document.nodeType.fullConfiguration.ui.icon}
                             renderer = afx`
                                 <tr class={(document.hiddenInIndex ? 'document-hiddenInIndex ':'')+(document.hidden ? 'document-hidden ':'')}>
                                     <td>
+                                        <Neos.Fusion:Fragment @if={document.nodeData.hiddenAfterDateTime && document.nodeData.hiddenAfterDateTime < document.context.currentDateTime
+                                            || document.nodeData.hiddenBeforeDateTime && document.nodeData.hiddenBeforeDateTime > document.context.currentDateTime}>
+                                            <NeosLoves.Iconify:Icon name="fa7-solid:clock" renderer.style={"color:#ff8181; vertical-align: middle;margin-right: 0.5rem;"}/>
+                                        </Neos.Fusion:Fragment>
+                                        <Neos.Fusion:Fragment @if={document.hidden}>
+                                            <NeosLoves.Iconify:Icon name="fa7-solid:circle-xmark" renderer.style={"color:#ff8181; vertical-align: middle;margin-right: 0.5rem;"}/>
+                                        </Neos.Fusion:Fragment>
                                         <Neos.Neos:NodeLink node={document}>
-                                            <i class={'fas fa-' + props.icon + ' ' + props.icon} @if={props.icon}></i> {document.properties.title}
+                                            <Kleisli.Neos.DocumentCollection:Component.NodeIcon node={document} style="font-size: 1rem;  vertical-align: middle;margin-right: 0.25rem;" />
+                                            {document.properties.title}
                                         </Neos.Neos:NodeLink>
                                     </td>
+                                    <Neos.Fusion:Loop items={props.listViewConfiguration.showProperties} itemName="propertyRenderer" itemKey="propertyName">
+                                        <td>
+                                            <Kleisli.Neos.DocumentCollection:Component.NodePropertyDisplayer node={document} propertyName={propertyName}/>
+                                        </td>
+                                    </Neos.Fusion:Loop>
 
                                 </tr>
                             `
@@ -44,16 +64,14 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
                     }
                     documents.@process.table = ${'<table class="neos-table">'+value+'</table>'}
 
-                    icon = ${documentNode.nodeType.fullConfiguration.ui.icon}
-
                     renderer = afx`
                         <Kleisli.Neos.DocumentCollection:Component.AdminBar currentView='list' />
                         <div class="neos-module-wrap">
                             <div class="neos-content neos-fluid-container neos-indented">
-                                <legend>
-                                    <i class={'fas fa-' + props.icon + ' ' + props.icon} @if={props.icon}></i> &nbsp;
+                                <h1 style="font-size: 1.5rem; margin-bottom:0.5rem">
+                                    <Kleisli.Neos.DocumentCollection:Component.NodeIcon node={documentNode} class="test" style="margin-right: 0.5rem; vertical-align: middle;" />
                                     {documentNode.properties.title}
-                                </legend>
+                                </h1>
                                 {props.documents}
                             </div></div>
                     `
@@ -62,9 +80,12 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
         }
     }
 
-
     @cache {
-        mode = 'uncached'
+        mode = 'dynamic'
+        entryIdentifier {
+            node = ${node}
+        }
+        entryDiscriminator = ${request.arguments.view}
         context {
             1 = 'node'
             2 = 'documentNode'

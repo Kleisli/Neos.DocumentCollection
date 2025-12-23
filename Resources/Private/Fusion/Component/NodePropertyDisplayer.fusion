@@ -1,0 +1,16 @@
+prototype(Kleisli.Neos.DocumentCollection:Component.NodePropertyDisplayer) < prototype(Neos.Fusion:Component) {
+
+    propertyName = ''
+    node = ${node}
+
+    renderer = Neos.Fusion:Component {
+        propertyValue = ${Milly.Object.getProperty(props.node.properties, props.propertyName)}
+        propertyEditor = ${props.node.nodeType.fullConfiguration.properties[props.propertyName].ui.inspector.editor}
+
+        renderer = Neos.Fusion:Match {
+            @subject = ${String.replace(props.propertyEditor, 'Neos.Neos/Inspector/Editors/' , '')}
+            @default = ${props.propertyValue}
+            DateTimeEditor = ${props.propertyValue ? Date.format(props.propertyValue, "d.m.Y") : ''}
+        }
+    }
+}

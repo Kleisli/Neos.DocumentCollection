@@ -1,0 +1,16 @@
+prototype(Kleisli.Neos.DocumentCollection:Component.NodeIcon) < prototype(Neos.Fusion:Component) {
+
+    class = ''
+    style = ''
+    node = ${node}
+
+    renderer = NeosLoves.Iconify:Icon {
+        @if.icon = ${props.node.nodeType.fullConfiguration.ui.icon}
+        @apply.props = ${props}
+        name = ${String.replace(props.node.nodeType.fullConfiguration.ui.icon, ['fas fa-', 'far fa-'],  ['fa7-solid:', 'fa7-regular:'])}
+        renderer {
+            class = ${props.class}
+            style = ${props.style}
+        }
+    }
+}
