@@ -42,13 +42,13 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
                                     <td>
                                         <Neos.Fusion:Fragment @if={document.nodeData.hiddenAfterDateTime && document.nodeData.hiddenAfterDateTime < document.context.currentDateTime
                                             || document.nodeData.hiddenBeforeDateTime && document.nodeData.hiddenBeforeDateTime > document.context.currentDateTime}>
-                                            <NeosLoves.Iconify:Icon name="fa7-solid:clock" renderer.style={"color:#ff8181; vertical-align: middle;margin-right: 0.5rem;"}/>
+                                            <NeosLoves.Iconify:Icon name="fa7-solid:clock" renderer.style={"display: inline-block; color:#ff8181; vertical-align: middle;margin-right: 0.5rem;"}/>
                                         </Neos.Fusion:Fragment>
                                         <Neos.Fusion:Fragment @if={document.hidden}>
-                                            <NeosLoves.Iconify:Icon name="fa7-solid:circle-xmark" renderer.style={"color:#ff8181; vertical-align: middle;margin-right: 0.5rem;"}/>
+                                            <NeosLoves.Iconify:Icon name="fa7-solid:circle-xmark" renderer.style={"display: inline-block; color:#ff8181; vertical-align: middle;margin-right: 0.5rem;"}/>
                                         </Neos.Fusion:Fragment>
                                         <Neos.Neos:NodeLink node={document}>
-                                            <Kleisli.Neos.DocumentCollection:Component.NodeIcon node={document} style="font-size: 1rem;  vertical-align: middle;margin-right: 0.25rem;" />
+                                            <Kleisli.Neos.DocumentCollection:Component.NodeIcon node={document} style="display: inline-block; font-size: 1rem;  vertical-align: middle;margin-right: 0.25rem;" />
                                             {document.properties.title}
                                         </Neos.Neos:NodeLink>
                                     </td>
@@ -69,7 +69,7 @@ prototype(Kleisli.Neos.DocumentCollection:Document.DocumentCollection) < prototy
                         <div class="neos-module-wrap">
                             <div class="neos-content neos-fluid-container neos-indented">
                                 <h1 style="font-size: 1.5rem; margin-bottom:0.5rem">
-                                    <Kleisli.Neos.DocumentCollection:Component.NodeIcon node={documentNode} class="test" style="margin-right: 0.5rem; vertical-align: middle;" />
+                                    <Kleisli.Neos.DocumentCollection:Component.NodeIcon node={documentNode} style="display: inline-block; margin-right: 0.5rem; vertical-align: middle;" />
                                     {documentNode.properties.title}
                                 </h1>
                                 {props.documents}
