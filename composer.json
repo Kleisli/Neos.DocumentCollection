@@ -3,7 +3,7 @@
     "name": "kleisli/neos-documentcollection",
     "description": "A backend list view of document subtrees for Neos CMS",
     "require": {
-        "neos/neos": "^8.0",
+        "neos/neos": "^8.0 || ^9.0",
         "kleisli/neos-documentadminbar": "^1.0"
     },
     "extra": {
